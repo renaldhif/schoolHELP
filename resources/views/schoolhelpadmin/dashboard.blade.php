@@ -31,7 +31,7 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="/dashboard">
+                href="{{ Route('superadmin_dashboard') }}">
                 <img src="{{ asset('img\logo.png') }}" alt="school help logo" height="64" width="64">
                 <div class="sidebar-brand-text mx-2">SchoolHELP</sup></div>
             </a>
@@ -41,7 +41,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/dashboard">
+                <a class="nav-link" href="{{ Route('superadmin_dashboard') }}">
                     <i class="fas fa-fw fa-solid fa-home"></i>
                     <span>Home</span></a>
             </li>
@@ -56,7 +56,7 @@
 
             <!-- Nav Item - Add School -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/addschool">
+                <a class="nav-link collapsed" href="{{ Route('superadmin_addschool') }}">
                     <i class="fas fa-fw fa-solid fa-school"></i>
                     <span>Add School</span>
                 </a>
@@ -141,6 +141,46 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Welcome, School HELP Administrator!</h1>
+
+                    <div class="row">
+
+                        <!-- Add School Card -->
+                        <div class="col-lg-4 ">
+                            <div class="card text-center mb-4" style="height: 300px">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <a class="nav-link collapsed" href="{{ Route('superadmin_addschool') }}">
+                                        <i class="fas fa-fw fa-solid fa-school fa-5x"></i>
+                                        <h2 class="mt-5">Add School</h2>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add Admin School Card -->
+                        <div class="col-lg-4 ">
+                            <div class="card text-center mb-4" style="height: 300px">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <a class="nav-link collapsed" href="{{ Route('superadmin_dashboard') }}">
+                                        <i class="fas fa-fw fa-solid fa-user-plus fa-5x"></i>
+                                        <h4 class="mt-5">Add School Administrator</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- View All Registered School Card -->
+                        <div class="col-lg-4 ">
+                            <div class="card text-center mb-4" style="height: 300px">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <a class="nav-link collapsed" href="{{ Route('superadmin_dashboard') }}">
+                                        <i class="fas fa-fw fa-solid fa-scroll fa-5x"></i>
+                                        <h4 class="mt-5">View All Registered School</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
