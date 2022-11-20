@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'School HELP Administrator',
             'email' => 'superadmin@schoolhelp.com',
             'username' => 'superadmin',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('superadmin'),
             'phone_number' => '0123456789',
             'role' => 'superadmin',
         ]);
