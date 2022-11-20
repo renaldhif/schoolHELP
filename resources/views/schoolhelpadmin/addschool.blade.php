@@ -23,6 +23,9 @@
 
 <body id="page-top">
 
+    <!-- Sweet Alert -->
+    @include('sweetalert::alert')
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -31,7 +34,7 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="/dashboard">
+                href="{{ Route('superadmin_dashboard') }}">
                 <img src="{{ asset('img\logo.png') }}" alt="school help logo" height="64" width="64">
                 <div class="sidebar-brand-text mx-2">SchoolHELP</sup></div>
             </a>
@@ -41,7 +44,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/dashboard">
+                <a class="nav-link" href="{{ Route('superadmin_dashboard') }}">
                     <i class="fas fa-fw fa-solid fa-home"></i>
                     <span>Home</span></a>
             </li>
@@ -56,7 +59,7 @@
 
             <!-- Nav Item - Add School -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="{{ Route('superadmin_addschool') }}">
                     <i class="fas fa-fw fa-solid fa-school"></i>
                     <span>Add School</span>
                 </a>
@@ -138,24 +141,25 @@
                     <h1 class="h3 mb-4 text-gray-800">Add for a new school</h1>
 
                     <div class="card-body">
-                        <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('store-form')}}">
+                        {{-- <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('store-form')}}"> --}}
+                        <form name="add-blog-post-form" id="add-blog-post-form" method="post">
                             @csrf
                             <div class="form-group">
                                 <label for="schoolname">School Name</label>
-                                <input type="text" id="schoolname" name="schoolname" class="form-control" required="">
+                                <input type="text" id="schoolname" name="school_name" class="form-control" required="">
                             </div>
 
                             <div class="form-group">
                                 <label for="schooladdress">School Address</label>
-                                <input type="text" id="schooladdress" name="schooladdress" class="form-control" required="">
+                                <input type="text" id="schooladdress" name="school_address" class="form-control" required="">
                             </div>
 
                             <div class="form-group">
                                 <label for="schoolcity">School City</label>
-                                <input type="text" id="schoolcity" name="schoolcity" class="form-control" required="">
+                                <input type="text" id="schoolcity" name="school_city" class="form-control" required="">
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" value="add">Add</button>
                             </form>
                         </div>
 
