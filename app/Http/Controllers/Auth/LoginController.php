@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -19,14 +21,35 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers{
+        logout as performLogout;
+    }
 
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::DASHBOARD;
+    public function redirectTo()
+    {
+        $role = Auth::user()->role;
+        switch ($role){
+            case 'superadmin':
+                $this -> redirectTo = '/superadmin_dashboard';
+                return $this -> redirectTo;
+                break;
+            case 'schooladmin':
+                return '/schooladmin_dashboard';
+                break;
+            case 'volunteer':
+                return '/volunteer_dashboard';
+                break;
+            default:
+                return '/login';
+                break;
+        }
+    }
 
     /**
      * Create a new controller instance.
@@ -36,5 +59,11 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function logout(Request $request)
+    {
+        $this->performLogout($request);
+        return redirect()->route('login');
     }
 }
