@@ -131,9 +131,9 @@
                         </div>
                         {{-- <a href="login.html" class="btn btn-primary btn-user btn-block">
                             Register Account
-                        </a> --}}
+                        </a>
                         <hr>
-                        {{-- <a href="index.html" class="btn btn-google btn-user btn-block">
+                       <a href="index.html" class="btn btn-google btn-user btn-block">
                             <i class="fab fa-google fa-fw"></i> Register with Google
                         </a>
                         <a href="index.html" class="btn btn-facebook btn-user btn-block">
