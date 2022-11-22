@@ -14,4 +14,14 @@ class School extends Model
         'school_address',
         'school_city',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
 }
