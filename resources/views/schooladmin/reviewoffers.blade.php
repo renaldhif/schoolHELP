@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>School HELP - Dashboard</title>
+    <title>School HELP - Review Offers</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('sbadmin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -138,43 +138,13 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Welcome, School Administrator</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Review Offers</h1>
 
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Administrator Information</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <img class="img-profile rounded-circle" src="{{asset('sbadmin/img/undraw_profile.svg')}}">
-                                </div>
-                                <div class="col-md-10">
-                                    <h3>{{ Auth::user()->name }}</h3>
-                                    <p>{{ Auth::user()->position}}</p>
-                                    <hr>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>School ID</td>
-                                                <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-                                                <td>{{Auth::user()->school_id}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>School Name</td>
-                                                <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-                                                <td>
-                                                    {{(Auth::user()->school->school_name)}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <!-- /.container-fluid -->
+
+
 
             </div>
             <!-- End of Main Content -->

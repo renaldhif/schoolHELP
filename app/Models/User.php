@@ -53,6 +53,11 @@ class User extends Authenticatable
         return $this->belongsTo(School::class);
     }
 
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
     public function getSchoolAttribute() {
         return School::find($this->school_id);
     }
