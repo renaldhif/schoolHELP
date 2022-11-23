@@ -9,6 +9,7 @@ class Request extends Model
 {
     use HasFactory;
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -18,4 +19,15 @@ class Request extends Model
     {
         return $this->belongsTo(School::class);
     }
+
+    protected $fillable = [
+        'request_date',
+        'description',
+        'proposed_date',
+        'student_level',
+        'student_number',
+        'resource_category',
+        'resource_quantity',
+    ];
 }
+

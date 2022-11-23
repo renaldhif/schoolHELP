@@ -23,6 +23,9 @@
 
 <body id="page-top">
 
+    <!-- Sweet Alert -->
+    @include('sweetalert::alert')
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -64,7 +67,7 @@
 
             <!-- Nav Item - Add School -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ Route('superadmin_addschooladmin') }}">
+                <a class="nav-link collapsed" href="#">
                     <i class="fas fa-fw fa-solid fa-user-plus"></i>
                     <span>Add School Administrator</span>
                 </a>
@@ -108,7 +111,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                            <a class="nav-link dropdown-toggle" href="{{asset('sbadmin/#')}}" id="userDropdown"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">School HELP Administrator</span>
                                 <img class="img-profile rounded-circle"
@@ -126,7 +129,6 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                                </a>
                             </div>
                         </li>
 
@@ -140,71 +142,96 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Welcome, School HELP Administrator!</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Add New School Administrator</h1>
 
-                    <div class="row">
+                    <div class="card-body">
+                        <form action="{{ Route('superadmin_addschooladmin') }}" name="add-school-admin-form" id="add-school-admin-form" method="post">
+                            @csrf
+                            {{-- Select School --}}
+                            <label for="exampleFormControlSelect1">Select School</label>
+                            <select class="form-control mb-4" id="selectschool" 
+                                    name="school_id">
+                                <option value=""></option>
+                                @foreach ($schools as $school)
+                                    <option value="{{ $school->id }}">{{ $school->school_name }}</option>
+                                @endforeach
+                            </select>
 
-                        <!-- Add School Card -->
-                        <div class="col-lg-4 ">
-                            <div class="card text-center mb-4" style="height: 300px">
-                                <div class="card-body d-flex align-items-center justify-content-center">
-                                    <a class="nav-link collapsed" href="{{ Route('superadmin_addschool') }}">
-                                        <i class="fas fa-fw fa-solid fa-school fa-5x"></i>
-                                        <h2 class="mt-5">Add School</h2>
-                                    </a>
-                                </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" 
+                                        name="username" class="form-control" required placeholder="username">
                             </div>
-                        </div>
 
-                        <!-- Add Admin School Card -->
-                        <div class="col-lg-4 ">
-                            <div class="card text-center mb-4" style="height: 300px">
-                                <div class="card-body d-flex align-items-center justify-content-center">
-                                    <a class="nav-link collapsed" href="{{ Route('superadmin_addschooladmin') }}">
-                                        <i class="fas fa-fw fa-solid fa-user-plus fa-5x"></i>
-                                        <h4 class="mt-5">Add School Administrator</h4>
-                                    </a>
-                                </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="text" id="password" 
+                                        name="password" class="form-control" required placeholder="password">
                             </div>
-                        </div>
 
-                        <!-- View All Registered School Card -->
-                        <div class="col-lg-4 ">
-                            <div class="card text-center mb-4" style="height: 300px">
-                                <div class="card-body d-flex align-items-center justify-content-center">
-                                    <a class="nav-link collapsed" href="{{ Route('superadmin_dashboard') }}">
-                                        <i class="fas fa-fw fa-solid fa-scroll fa-5x"></i>
-                                        <h4 class="mt-5">View All Registered School</h4>
-                                    </a>
-                                </div>
+                            <div class="form-group">
+                                <label for="name">Fullname</label>
+                                <input type="text" id="name" 
+                                        name="name" class="form-control" required placeholder="Admin Full Name">
                             </div>
-                        </div>
 
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" 
+                                        name="email" class="form-control" required placeholder="admin@gemail.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone_number">Phone Number</label>
+                                <input type="tel" id="phone_number" 
+                                        name="phone_number" class="form-control  @error('phone_number') is-invalid @enderror" required="" placeholder="081234567890">
+
+                                @error('phone_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="staff_id">Staff ID</label>
+                                <input type="text" id="staff_id" 
+                                        name="staff_id" class="form-control" required="" placeholder="SA-1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="position">Position</label>
+                                <input type="text" id="position" 
+                                        name="position" class="form-control" required placeholder="admin">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
                     </div>
-
                 </div>
+
                 <!-- /.container-fluid -->
 
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; 2022 | All Rights Reserved
+                                <br>
+                                Developed with ❤️ for BIT216 - Software Engineering Principles HELP University
+                            </span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; 2022 | All Rights Reserved
-                            <br>
-                            Developed with ❤️ for BIT216 - Software Engineering Principles HELP University
-                        </span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
+
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
@@ -226,7 +253,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/login">Logout</a>
+                    <a class="btn btn-primary" href="{{asset('sbadmin/login.html')}}">Logout</a>
                 </div>
             </div>
         </div>

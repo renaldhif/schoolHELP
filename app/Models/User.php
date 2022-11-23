@@ -18,11 +18,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'school_id',
         'name',
         'username',
         'email',
         'password',
-        'phonenumber',
+        'phone_number',
+        'staff_id',
+        'position',
+        'role',
     ];
 
     /**
@@ -52,5 +56,9 @@ class User extends Authenticatable
     public function requests()
     {
         return $this->hasMany(Request::class);
+    }
+
+    public function getSchoolAttribute() {
+        return School::find($this->school_id);
     }
 }

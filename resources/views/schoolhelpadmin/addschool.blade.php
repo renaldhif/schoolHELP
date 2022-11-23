@@ -67,7 +67,7 @@
 
             <!-- Nav Item - Add School -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="{{ Route('superadmin_addschooladmin') }}">
                     <i class="fas fa-fw fa-solid fa-user-plus"></i>
                     <span>Add School Administrator</span>
                 </a>
