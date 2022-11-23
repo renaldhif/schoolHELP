@@ -18,11 +18,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'school_id',
         'name',
         'username',
         'email',
         'password',
-        'phonenumber',
+        'phone_number',
+        'staff_id',
+        'position',
+        'role',
     ];
 
     /**
@@ -43,4 +47,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
+
+    public function getSchoolAttribute() {
+        return School::find($this->school_id);
+    }
 }
