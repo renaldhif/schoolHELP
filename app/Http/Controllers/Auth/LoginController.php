@@ -43,7 +43,7 @@ class LoginController extends Controller
                 return '/schooladmin_dashboard';
                 break;
             case 'volunteer':
-                return '/volunteer_dashboard';
+                return '/dashboard';
                 break;
             default:
                 return '/login';

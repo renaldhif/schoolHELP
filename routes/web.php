@@ -24,6 +24,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/register', [App\Http\Controllers\volunteer\AddVolunteerController::class, 'index'])->name('register');
+Route::post('/register', [App\Http\Controllers\volunteer\AddVolunteerController::class, 'create'])->name('register');
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth', 'checkrole:superadmin']], function () {
     Route::get('/superadmin_dashboard', [App\Http\Controllers\schoolhelpadmin\DashboardController::class, 'index'])->name('superadmin_dashboard');

@@ -23,6 +23,8 @@ class CheckRole
         elseif (Auth::check() && Auth::user()->role == 'schooladmin') {
             return $next($request);
         }
-        return redirect('/volunteer.dashboard');
+        elseif (Auth::check() && Auth::user()->role == 'volunteer') {
+            return $next($request);
+        }
     }
 }
