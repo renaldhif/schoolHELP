@@ -58,11 +58,11 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/addschool">
                     <i class="fas fa-fw fa-solid fa-school"></i>
-                    <span>Add School</span>
+                    <span>View Request History</span>
                 </a>
             </li>
 
-            <!-- Nav Item - Add School -->
+            {{-- <!-- Nav Item - Add School -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#">
                     <i class="fas fa-fw fa-solid fa-user-plus"></i>
@@ -76,7 +76,7 @@
                     <i class="fas fa-fw fa-solid fa-scroll"></i>
                     <span>View All Registered School</span>
                 </a>
-            </li>
+            </li> --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -110,12 +110,16 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">School HELP Administrator</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('sbadmin/img/undraw_profile.svg')}}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
@@ -140,7 +144,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Welcome, Volunteer name!</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Welcome, {{ Auth::user()->name }}!</h1>
 
                 </div>
                 <!-- /.container-fluid -->
