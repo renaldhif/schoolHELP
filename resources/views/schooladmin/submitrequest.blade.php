@@ -117,6 +117,12 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ Route('schooladmin_profile') }}">
+                                    <i
+                                        class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"
+                                    ></i>
+                                    Profile
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
@@ -226,7 +232,6 @@
                                                 </div>
                                             </div>
 
-                                            //submit button
                                             <div class="form-group row mb-0">
                                                 <div class="col-md-6 offset-md-3">
                                                     <button type="submit" class="btn btn-primary">
@@ -363,7 +368,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{('sbadmin/js/sb-admin-2.min.js')}}"></script>
-
+    <!-- Bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
