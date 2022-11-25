@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\schooladmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\RequestData;
+use App\Models\ResourceCategory;
+use App\Models\StudentLevelCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SubmitRequestController extends Controller
 {
@@ -14,7 +18,15 @@ class SubmitRequestController extends Controller
      */
     public function index()
     {
-        return view('schooladmin.submitrequest');
+        $student_levels = StudentLevelCategory::all();
+        $resource_categories = ResourceCategory::all();
+        return view(
+            'schooladmin.submitrequest',
+            [
+                'student_levels' => $student_levels,
+                'resource_categories' => $resource_categories
+            ]
+        );
     }
 
     /**
@@ -41,57 +53,50 @@ class SubmitRequestController extends Controller
     //store tutor request
     public function storeTutorRequest(Request $request)
     {
-        // TODO:activate this code (line 45-62) when the tutor request form is ready and the github has been updated
-        // $request->validate(request(), [
-        //     'tutorialdescription' => 'required',
-        //     'proposeddatetime' => 'required',
-        //     'studentlevel' => 'required',
-        //     'numberofexpectedstudent' => 'required',
-        // ]);
+        $this->validate(request(), [
+            'description' => 'required|max:255',
+            'proposed_date' => 'required',
+            'student_level' => 'required',
+            'student_number' => 'required|numeric|gt:0',
+        ]);
 
-        // $submitrequest = new Request();
-        // $submitrequest->user_id = auth()->user()->id;
-        // $submitrequest->school_id = $request->user()->school->id;
-        // $submitrequest->request_date = now();
-        // $submitrequest->request_status = 'New';
-        // $submitrequest->description = $request['tutorialdescription'];
-        // $submitrequest->proposed_date = $request['proposeddatetime'];
-        // $submitrequest->student_level = $request['studentlevel'];
-        // $submitrequest->student_number = $request['numberofexpectedstudent'];
-        // $submitrequest->save();
-        // return redirect()->route('schooladmin.submitrequest.index')->with('success', 'Request submitted successfully');
+        $query = RequestData::create([
+            'user_id' => auth()->user()->id,
+            'school_id' => auth()->user()->school_id,
+            'request_date' => now(),
+            'description' => $request['description'],
+            'proposed_date' => $request['proposed_date'],
+            'student_level' => $request['student_level'],
+            'student_number' => $request['student_number'],
+        ]);
+        if ($query) {
+            return back()->with('success', 'Request submitted successfully');
+        } else {
+            return back()->with('error', 'Request submission failed');
+        }
     }
 
     public function storeResourceRequest(Request $request)
     {
-        $request->validate(request(), [
-            'description' => 'required',
-            'resourcetype' => 'required',
-            'numberrequired' => 'required',
+        $this->validate(request(), [
+            'description' => 'required|max:255',
+            'resource_category' => 'required',
+            'resource_quantity' => 'required|numeric|gt:0',
         ]);
 
-        //TODO delete code below when the resource request form is ready and the github has been updated
-        // $request->user()->requests()->create([
-        //     'user_id' => auth()->user()->id,
-        //     'school_id' => $request->user()->school->id,
-        //     'request_date' => now(),
-        //     'request_status' => 'New',
-        //     'description' => $request->description,
-        //     'resource_category' => $request->resourcetype,
-        //     'resource_quantity' => $request->numberrequired,
-        // ]);
-
-        //TODO activate code below (line 85-94) when the resource request form is ready and the github has been updated
-        // $submitrequest = new Request();
-        // $submitrequest->user_id = auth()->user()->id;
-        // $submitrequest->school_id = $request->user()->school->id;
-        // $submitrequest->request_date = now();
-        // $submitrequest->request_status = 'New';
-        // $submitrequest->description = $request['resourcedescription'];
-        // $submitrequest->resource_category = $request['resourcetype'];
-        // $submitrequest->resource_quantity = $request['numberrequired'];
-        // $submitrequest->save();
-        // return redirect()->route('schooladmin.submitrequest.index')->with('success', 'Request submitted successfully');
+        $query = RequestData::create([
+            'user_id' => auth()->user()->id,
+            'school_id' => auth()->user()->school_id,
+            'request_date' => now(),
+            'description' => $request['description'],
+            'resource_category' => $request['resource_category'],
+            'resource_quantity' => $request['resource_quantity'],
+        ]);
+        if ($query) {
+            return back()->with('success', 'Request submitted successfully');
+        } else {
+            return back()->with('error', 'Request submission failed');
+        }
     }
 
 
@@ -138,5 +143,11 @@ class SubmitRequestController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     */
+    public function __construct()
+    {
     }
 }
