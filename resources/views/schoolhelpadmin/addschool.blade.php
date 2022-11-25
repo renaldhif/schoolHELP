@@ -150,17 +150,17 @@
                             @csrf
                             <div class="form-group">
                                 <label for="schoolname">School Name</label>
-                                <input type="text" id="schoolname" name="school_name" class="form-control" required="">
+                                <input type="text" id="schoolname" name="school_name" class="form-control" required="" placeholder="School Name">
                             </div>
 
                             <div class="form-group">
                                 <label for="schooladdress">School Address</label>
-                                <input type="text" id="schooladdress" name="school_address" class="form-control" required="">
+                                <input type="text" id="schooladdress" name="school_address" class="form-control" required="" placeholder="School Address Street No. 1">
                             </div>
 
                             <div class="form-group">
                                 <label for="schoolcity">School City</label>
-                                <input type="text" id="schoolcity" name="school_city" class="form-control" required="">
+                                <input type="text" id="schoolcity" name="school_city" class="form-control" required="" placeholder="Denpasar">
                             </div>
 
                             <button type="submit" class="btn btn-primary" value="add">Add</button>
