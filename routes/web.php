@@ -44,8 +44,8 @@ Route::group(['middleware' => ['auth', 'checkrole:schooladmin']], function () {
     Route::get('/schooladmin_viewallrequest', [App\Http\Controllers\schooladmin\ViewAllRequestController::class, 'index'])->name('schooladmin_viewallrequest');
     Route::get('/schooladmin_profile', [App\Http\Controllers\schooladmin\ProfileController::class, 'index'])->name('schooladmin_profile');
     Route::post('/schooladmin_profile', [App\Http\Controllers\schooladmin\ProfileController::class, 'editProfile'])->name('schooladmin_editprofile');
-
-
+    Route::post('/schooladmin_submittutorrequest', [App\Http\Controllers\schooladmin\SubmitRequestController::class, 'storeTutorRequest'])->name('schooladmin_submittutorrequest');
+    Route::post('/schooladmin_submitresourceresquest', [App\Http\Controllers\schooladmin\SubmitRequestController::class, 'storeResourceRequest'])->name('schooladmin_submitresourceresquest');
     Route::post('/schooladmin_submittutorrequest', [App\Http\Controllers\schooladmin\SubmitRequestController::class, 'storeTutorRequest'])->name('schooladmin_submittutorrequest');
     Route::post('/schooladmin_submitresourceresquest', [App\Http\Controllers\schooladmin\SubmitRequestController::class, 'storeResourceRequest'])->name('schooladmin_submitresourceresquest');
 });

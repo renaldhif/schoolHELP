@@ -13,8 +13,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('sbadmin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{asset('sbadmin/css/sb-admin-2.min.css')}}" rel="stylesheet">
@@ -23,6 +22,9 @@
 </head>
 
 <body id="page-top">
+
+    <!-- Sweet Alert -->
+    @include('sweetalert::alert')
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -33,7 +35,12 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center"
                 href="{{ route('schooladmin_dashboard')}}">
-                <img src="{{ asset('img\logo.png') }}" alt="school help logo" height="64" width="64">
+                <img
+                    src="{{ asset('img\logo.png') }}"
+                    alt="school help logo"
+                    height="64"
+                    width="64"
+                >
                 <div class="sidebar-brand-text mx-2">SchoolHELP</sup></div>
             </a>
 
@@ -141,7 +148,6 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                @yield('content')
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
@@ -176,7 +182,7 @@
                             <div class="card-body">
                                 <div class="tab-content">
                                     <!-- Tutorial Request Tab started here -->
-                                    <div class="tab-pane fade show active" id="tutorialrequest">
+                                    <div class="tab-pane active text-left" id="tutorialrequest">
                                         <form method="POST" action="{{ route('schooladmin_submittutorrequest') }}">
                                             @csrf
                                             <div class="form-group row">
@@ -239,63 +245,102 @@
                                                     </button>
                                                 </div>
                                             </div>
+                                            <label for="description">Description</label>
+                                            <textarea class="form-control @error('description') is-invalid @enderror"
+                                                id="description"
+                                                rows="2"
+                                                cols="255"
+                                                maxlength="255"
+                                                name="description">
+                                            </textarea>
+                                            @error('description')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
+                                            <label for="proposed_date" class="mt-4">Proposed Date and Time</label>
+                                            <input
+                                                type="datetime-local"
+                                                class="form-control @error('proposed_date') is-invalid @enderror"
+                                                id="proposed_date"
+                                                name="proposed_date"
+                                                value="{{ now()->setTimezone('T')->format('Y-m-dTh:m') }}" form-control>
+                                            @error('proposed_date')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
+                                            <label for="student_level" class="mt-4">Student Level</label>
+                                            <select
+                                                class="form-control @error('student_level') is-invalid @enderror"
+                                                id="student_level"
+                                                name="student_level">
+                                                <option selected>Choose...</option>
+                                                @foreach ($student_levels as $level)
+                                                    <option value="{{ $level->id }}">{{ $level->category_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('student_level')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
+                                            <label for="student_number" class="mt-4">Number of Expected Students</label>
+                                            <input type="number" class="form-control @error('student_number') is-invalid @enderror" id="student_number" name="student_number">
+                                            @error('student_number')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
+                                            <button type="submit" class="btn btn-primary mt-4">Submit</button>
                                         </form>
                                     </div>
                                     <!-- Tutorial Request Tab ended here -->
 
                                     <!-- Resource Request Tab started here -->
-                                    <div class="tab-pane fade" id="resourcerequest">
+                                    <div class="tab-pane fade text-left" id="resourcerequest">
                                         <form method="POST" action="{{ route('schooladmin_submitresourceresquest') }}">
                                             @csrf
-                                            <div class="form-group row">
-                                                <label for="resourcedescription" class="col-md-3 col-form-label text-md-left">{{ __('Description') }}</label>
-                                                <div class="col">
-                                                    <textarea id="resourcedescription" type="text" class="form-control @error('resourcedescription') is-invalid @enderror" name="resourcedescription" value="{{ old('Resource Description') }}" required autocomplete="Resource Description" autofocus placeholder="Input the description of the request here..." maxlength="255"></textarea>
-                                                    @error('resourcedescription')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                            <label for="description">Description</label>
+                                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="2" cols="255" maxlength="255" name="description"></textarea>
+                                            @error('description')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
 
-                                            <div class="form-group row">
-                                                <label for="resourcetype" class="col-md-3 col-form-label text-md-left">{{ __('Resource Type') }}</label>
-                                                <div class="col">
-                                                    <select id="resourcetype" class="form-control @error('resourcetype') is-invalid @enderror" name="resourcetype" value="{{ old('resourcetype') }}" required autocomplete="resourcetype">
-                                                        <option selected>Choose...</option>
-                                                        <option value="1">Mobile Device</option>
-                                                        <option value="2">Personal Computer</option>
-                                                        <option value="3">Networking Equipment</option>
-                                                    </select>
-                                                    @error('resourcetype')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                            <label for="resource_category" class="mt-4">Resurce Category</label>
+                                            <select class="form-control @error('resource_category') is-invalid @enderror" id="resource_category" name="resource_category">
+                                                <option selected>Choose...</option>
+                                                @foreach ($resource_categories as $resourcecategory)
+                                                    <option value="{{ $resourcecategory->id }}">{{ $resourcecategory->category_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('resource_category')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
 
-                                            <div class="form-group row">
-                                                <label for="numberrequired" class="col-md-3 col-form-label text-md-left">{{ __('Number of Required Resource') }}</label>
-                                                <div class="col">
-                                                    <input id="numberrequired" type="number" class="form-control @error('numberrequired') is-invalid @enderror" name="numberrequired" value="{{ old('numberrequired') }}" required autocomplete="numberrequired" autofocus placeholder="Input the number of required resource...">
-                                                    @error('numberrequired')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                            <label for="resource_quantity" class="mt-4">Number of Resource</label>
+                                            <input
+                                                type="number"
+                                                class="form-control @error('resource_quantity') is-invalid @enderror"
+                                                id="resource_quantity"
+                                                name="resource_quantity"
+                                            >
+                                            @error('resource_quantity')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
+                                            <button type="submit" class="btn btn-primary mt-4">Submit</button>
                                         </form>
-
-                                        <div class="form-group row mb-0">
-                                            <div class="col-md-6 offset-md-3">
-                                                <button type="submit" class="btn btn-primary">
-                                                    {{ __('Submit Request') }}
-                                                </button>
-                                            </div>
-                                        </div>
                                     </div>
                                     <!-- Resource Request Tab ended here -->
                                 </div>
