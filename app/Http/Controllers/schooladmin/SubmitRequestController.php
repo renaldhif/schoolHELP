@@ -57,7 +57,7 @@ class SubmitRequestController extends Controller
             'description' => 'required|max:255',
             'proposed_date' => 'required',
             'student_level' => 'required',
-            'student_number' => 'required',
+            'student_number' => 'required|numeric|gt:0',
         ]);
 
         $query = RequestData::create([
@@ -81,7 +81,7 @@ class SubmitRequestController extends Controller
         $this->validate(request(), [
             'description' => 'required|max:255',
             'resource_category' => 'required',
-            'resource_quantity' => 'required',
+            'resource_quantity' => 'required|numeric|gt:0',
         ]);
 
         $query = RequestData::create([
