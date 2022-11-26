@@ -68,6 +68,7 @@ class SubmitRequestController extends Controller
             'proposed_date' => $request['proposed_date'],
             'student_level' => $request['student_level'],
             'student_number' => $request['student_number'],
+            'request_status' => 'NEW',
         ]);
         if ($query) {
             return back()->with('success', 'Request submitted successfully');
@@ -91,6 +92,7 @@ class SubmitRequestController extends Controller
             'description' => $request['description'],
             'resource_category' => $request['resource_category'],
             'resource_quantity' => $request['resource_quantity'],
+            'request_status' => 'NEW',
         ]);
         if ($query) {
             return back()->with('success', 'Request submitted successfully');

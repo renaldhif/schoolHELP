@@ -19,6 +19,7 @@ class RequestData extends Model
         'student_number',
         'resource_category',
         'resource_quantity',
+        'request_status',
     ];
 
     public function user()
