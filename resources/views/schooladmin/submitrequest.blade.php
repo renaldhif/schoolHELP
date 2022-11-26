@@ -124,12 +124,6 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ Route('schooladmin_profile') }}">
-                                    <i
-                                        class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"
-                                    ></i>
-                                    Profile
-                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
@@ -185,74 +179,8 @@
                                     <div class="tab-pane active text-left" id="tutorialrequest">
                                         <form method="POST" action="{{ route('schooladmin_submittutorrequest') }}">
                                             @csrf
-                                            <div class="form-group row">
-                                                <label for="tutorialdescription" class="col-md-3 col-form-label text-md-left">{{ __('Description') }}</label>
-                                                <div class="col">
-                                                    <textarea id="tutorialdescription" class="form-control @error('tutorialdescription') is-invalid @enderror" name="tutorialdescription" value="{{ old('tutorialdescription') }}" required autocomplete="tutorialdescription" autofocus placeholder="Input the description of the request here..." maxlength="255"></textarea>
-                                                    @error('tutorialdescription')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="proposeddatetime" class="col-md-3 col-form-label text-md-left">{{ __('Proposed Date and Time') }}</label>
-                                                <div class="col">
-                                                    <input id="proposeddatetime" type="datetime-local" class="form-control @error('proposeddatetime') is-invalid @enderror" name="proposeddatetime" value="{{ old('proposeddatetime') }}" required autocomplete="proposeddatetime">
-                                                    @error('proposeddate')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="studentlevel" class="col-md-3 col-form-label text-md-left">{{ __('Student Level') }}</label>
-                                                <div class="col">
-                                                    <select id="studentlevel" class="form-control @error('studentlevel') is-invalid @enderror" name="studentlevel" value="{{ old('studentlevel') }}" required autocomplete="studentlevel">
-                                                        <option selected>Choose...</option>
-                                                        <option value="1">Elementary School</option>
-                                                        <option value="2">Junior High School</option>
-                                                        <option value="3">Senior High School</option>
-                                                    </select>
-                                                    @error('studentlevel')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="numberofexpectedstudent" class="col-md-3 col-form-label text-md-left">{{ __('Number of Expected Students') }}</label>
-                                                <div class="col">
-                                                    <input id="numberofexpectedstudent" type="number" class="form-control @error('numberofexpectedstudent') is-invalid @enderror" name="numberofexpectedstudent" value="{{ old('numberofexpectedstudent') }}" required autocomplete="numberofexpectedstudent" autofocus placeholder="Input the number of expected students...">
-                                                    @error('numberofexpectedstudent')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row mb-0">
-                                                <div class="col-md-6 offset-md-3">
-                                                    <button type="submit" class="btn btn-primary">
-                                                        {{ __('Submit Request') }}
-                                                    </button>
-                                                </div>
-                                            </div>
                                             <label for="description">Description</label>
-                                            <textarea class="form-control @error('description') is-invalid @enderror"
-                                                id="description"
-                                                rows="2"
-                                                cols="255"
-                                                maxlength="255"
-                                                name="description">
-                                            </textarea>
+                                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="2" cols="255" maxlength="255" name="description" style="white-space: normal"></textarea>
                                             @error('description')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -413,7 +341,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{('sbadmin/js/sb-admin-2.min.js')}}"></script>
-    <!-- Bootstrap js -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

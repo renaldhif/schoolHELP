@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('school_id');
             $table->foreign('school_id')->references('id')->on('schools');
+            $table->string('request_status')->default('NEW');
             $table->date('request_date');
             $table->string('description');
             $table->dateTime('proposed_date');

@@ -13,11 +13,16 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('sbadmin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{asset('sbadmin/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Data Tables CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 
 </head>
 
@@ -30,8 +35,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="/dashboard">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
                 <img src="{{ asset('img\logo.png') }}" alt="school help logo" height="64" width="64">
                 <div class="sidebar-brand-text mx-2">SchoolHELP</sup></div>
             </a>
@@ -56,7 +60,7 @@
 
             <!-- Nav Item - Add School -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/addschool">
+                <a class="nav-link collapsed" href="#">
                     <i class="fas fa-fw fa-solid fa-school"></i>
                     <span>View Request History</span>
                 </a>
@@ -108,14 +112,16 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
-                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('sbadmin/img/undraw_profile.svg')}}">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
@@ -146,65 +152,177 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Welcome, {{ Auth::user()->name }}!</h1>
 
+                    <!-- Data Table of Request -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Request Lists</h6>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="mb-4">Filter</h4>
+                            <div class="row">
+                                <!-- Select School Filter -->
+                                <div class="col-md-4">
+                                    <label>
+                                        <strong> School </strong>
+                                    </label>
+                                    <select class="form-control mb-4" id="selectschool" name="school_id">
+                                        <option value=""></option>
+                                        @foreach ($schools as $school)
+                                        <option value="{{ $school->school_name }}">{{ $school->school_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <!-- End of Select School Filter -->
+
+                                <!-- Select City Filter -->
+                                <div class="col-md-4">
+                                    <label>
+                                        <strong> City </strong>
+                                    </label>
+                                    <select class="form-control mb-4" id="selectcity" name="school_city">
+                                        <option value=""></option>
+                                        @foreach ($schools as $school)
+                                        <option value="{{ $school->school_city }}">{{ $school->school_city }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <!-- End of Select City Filter -->
+
+                                <!-- Select Request Date Filter -->
+                                {{-- <!-- Pickdate -->
+                                <div class="col-md-4">
+                                    <label>
+                                        <strong> Request Date </strong>
+                                    </label>
+                                    <input type="date" class="form-control mb-4" id="selectdate" name="request_date">
+                                </div> --}}
+
+                                <!-- By Available Request Date -->
+                                <!-- *UPDATE: Multiple date, dont use this method -->
+                                <div class="col-md-4">
+                                    <label>
+                                        <strong> Request Date </strong>
+                                    </label>
+                                    <select class="form-control mb-4" id="selectdate" name="request_date">
+                                        <option value=""></option>
+                                        @foreach ($requests as $request)
+                                        <option value="{{ $request->request_date }}">{{ $request->request_date }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    <!-- End of Select Request Date Filter -->
+                                </div>
+
+                                <hr>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Status</th>
+                                                <th>Request Date</th>
+                                                <th>Description</th>
+                                                <th>School Name</th>
+                                                <th>School City</th>
+                                                <th>View More</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <th>ID</th>
+                                            <th>Status</th>
+                                            <th>Request Date</th>
+                                            <th>Description</th>
+                                            <th>School Name</th>
+                                            <th>School City</th>
+                                            <th>View More</th>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach($requests as $data)
+                                            <tr class="item{{ $data->id }}">
+                                                <td>{{ $data->id }}</td>
+                                                <td>{{ $data->request_status }}</td>
+                                                <td>{{ $data->request_date }}</td>
+                                                <td>{{ $data->description }}</td>
+                                                <td>{{ $data->school->school_name}}</td>
+                                                <td>{{ $data->school->school_city }}</td>
+                                                <td><button type="button" class="btn btn-primary btn-block btn-sm">View
+                                                        Details</button></td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- /.container-fluid -->
+
                 </div>
-                <!-- /.container-fluid -->
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; 2022 | All Rights Reserved
+                                <br>
+                                Developed with ❤️ for BIT216 - Software Engineering Principles HELP University
+                            </span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- End of Content Wrapper -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; 2022 | All Rights Reserved
-                            <br>
-                            Developed with ❤️ for BIT216 - Software Engineering Principles HELP University
-                        </span>
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/login">Logout</a>
                     </div>
                 </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/login">Logout</a>
-                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{asset('sbadmin/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{('sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="{{asset('sbadmin/vendor/jquery/jquery.min.js')}}"></script>
+        <script src="{{('sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{{('sbadmin/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="{{('sbadmin/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="{{('sbadmin/js/sb-admin-2.min.js')}}"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="{{('sbadmin/js/sb-admin-2.min.js')}}"></script>
+
+        <!-- Data Tables JS CDN -->
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <!-- Data Tables Bootstrap -->
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- Importing the JS file -->
+        <script src="{{asset('js/script.js')}}"></script>
 
 </body>
 
