@@ -2,13 +2,14 @@
 <html lang="en">
 
 <head>
-    <title>School HELP - Dashboard</title>
-    <link rel="icon" href="img/schoolhelpicon.png" type="image/gif" sizes="16x16">
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <title>School HELP - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('sbadmin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -22,6 +23,9 @@
 
 <body id="page-top">
 
+    <!-- Sweet Alert -->
+    @include('sweetalert::alert')
+    
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -116,9 +120,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{ Route('schooladmin_profile') }}">
-                                    <i
-                                        class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"
-                                    ></i>
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -143,40 +145,132 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Welcome, School Administrator</h1>
+                    <h1 class="h3 mb-4 text-gray-800">School Administrator Profile</h1>
 
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Administrator Information</h6>
+                    <div class="card text-center">
+                        <!-- Card Header started here -->
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="myTab">
+                                <li class="nav-item">
+                                    <a href="#adminprofile" class="nav-link active" data-bs-toggle="tab">Admin Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#updateprofile" class="nav-link" data-bs-toggle="tab">Update Admin Profile</a>
+                                </li>
+                            </ul>
                         </div>
+                        <!-- Card Header ended here -->
+
+                        <!-- Card Body started here -->
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <img class="img-profile rounded-circle" src="{{asset('sbadmin/img/undraw_profile.svg')}}">
+                            <div class="tab-content">
+                                <!-- Admin Profile Tab started here -->
+                                <div class="tab-pane fade show active" id="adminprofile">
+                                    <div class="row text-left">
+                                        <div class="col-md-2">
+                                            <img class="img-profile rounded-circle" src="{{asset('sbadmin/img/undraw_profile.svg')}}">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h3>{{ Auth::user()->name }}</h3>
+                                            <p>{{ Auth::user()->position}}</p>
+                                            <hr>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>School ID</td>
+                                                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                        <td>{{Auth::user()->school_id}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>School Name</td>
+                                                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                        <td>
+                                                            {{(Auth::user()->school->school_name)}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <hr>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Full Name</td>
+                                                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                        <td>{{Auth::user()->name}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Email</td>
+                                                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                        <td>
+                                                            {{(Auth::user()->email)}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Phone</td>
+                                                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                        <td>
+                                                            0{{(Auth::user()->phone_number)}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Staff ID</td>
+                                                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                        <td>
+                                                            {{(Auth::user()->staff_id)}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Position</td>
+                                                        <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                        <td>
+                                                            {{(Auth::user()->position)}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <h3>{{ Auth::user()->name }}</h3>
-                                    <p>{{ Auth::user()->position}}</p>
-                                    <hr>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>School ID</td>
-                                                <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-                                                <td>{{Auth::user()->school_id}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>School Name</td>
-                                                <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-                                                <td>
-                                                    {{(Auth::user()->school->school_name)}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <!-- Admin Profile Tab ended here -->
+
+                                <!-- Update Admin profile Tab started here -->
+                                <div class="tab-pane fade text-left" id="updateprofile">
+                                    
+                                        <form name="updateprofile" method="post" action="{{ route('schooladmin_editprofile') }}">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="name">Full Name</label>
+                                                <input type="text" id="name" name="name" class="form-control" required="" placeholder="Full Name">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">Email</label>
+                                                <input type="text" id="email" name="email" class="form-control" required="" placeholder="admin@gmail.com">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">Phone Number</label>
+                                                <input type="text" id="phone_number" name="phone_number" class="form-control" required="" placeholder="081234567890">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">Staff ID</label>
+                                                <input type="text" id="staff_id" name="staff_id" class="form-control" required="" placeholder="SA-1">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="name">Position</label>
+                                                <input type="text" id="position" name="position" class="form-control" required="" placeholder="IT Staff Manager">
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary btn-block" value="update">Update</button>
+                                        </form>    
+
                                 </div>
+                                <!-- Update Admin Profile Tab ended here -->
                             </div>
                         </div>
+                        <!-- Card Body ended here -->
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -237,6 +331,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{('sbadmin/js/sb-admin-2.min.js')}}"></script>
+    <!-- Boostrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script> 
 
 </body>
 
