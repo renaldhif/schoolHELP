@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class ResourceCategory extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'category_name',
+    ];
+
+    public function requests()
+    {
+        return $this->hasMany(RequestData::class);
+    }
 }

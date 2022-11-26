@@ -15,13 +15,20 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/', [
+    'uses' => 'WelcomeController@index',
+    'as' => 'welcome_page'
+]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
+
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
 
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 
