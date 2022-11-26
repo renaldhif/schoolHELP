@@ -15,12 +15,15 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
+Route::get('/', [
+    'uses' => 'WelcomeController@index',
+    'as' => 'welcome_page'
+]);
 
-// Non Roles Routes
-Route::get('/', function () {
-    return view('welcome');
-});
 Auth::routes();
+
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
+
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::get('/register', [App\Http\Controllers\volunteer\AddVolunteerController::class, 'index'])->name('register');
 Route::post('/register', [App\Http\Controllers\volunteer\AddVolunteerController::class, 'create'])->name('register');
