@@ -3,6 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
+@include('sweetalert::alert')
 {{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -136,11 +137,11 @@
                                     </a> --}}
                                 </form>
                                 <hr>
-                                <div class="text-center">
+                                {{-- <div class="text-center">
                                     @if (Route::has('password.request'))
                                     <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
                                     @endif
-                                </div>
+                                </div> --}}
 
                                 <div class="text-center">
                                     <a class="small" href="{{ route('register') }}">Create an Account!</a>

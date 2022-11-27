@@ -28,6 +28,8 @@ Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLog
 Route::get('/register', [App\Http\Controllers\volunteer\AddVolunteerController::class, 'index'])->name('register');
 Route::post('/register', [App\Http\Controllers\volunteer\AddVolunteerController::class, 'create'])->name('register');
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::get('/changepassword', [App\Http\Controllers\PasswordController::class, 'index'])->name('changepassword');
+Route::post('/changepassword', [App\Http\Controllers\PasswordController::class, 'changePassword'])->name('changepassword');
 
 // Superadmin Routes
 Route::group(['middleware' => ['auth', 'checkrole:superadmin']], function () {
