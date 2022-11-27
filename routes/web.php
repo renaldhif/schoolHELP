@@ -56,4 +56,5 @@ Route::group(['middleware' => ['auth', 'checkrole:schooladmin']], function () {
 // Volunteer Routes
 Route::group(['middleware' => ['auth', 'checkrole:volunteer']], function () {
     Route::get('/dashboard', [App\Http\Controllers\volunteer\DashboardController::class, 'index'])->name('volunteer_dashboard');
+    Route::get('/requestDetails/{id}', 'ViewAllRequestController@show');
 });

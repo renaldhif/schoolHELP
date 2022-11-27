@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class StudentLevelCategory extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'category_name',
+    ];
+
+    public function requests()
+    {
+        return $this->hasMany(RequestData::class);
+    }
 }
