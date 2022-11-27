@@ -40,10 +40,12 @@ class LoginController extends Controller
                 return $this -> redirectTo;
                 break;
             case 'schooladmin':
-                return '/schooladmin_dashboard';
+                $this -> redirectTo = '/schooladmin_dashboard';
+                return $this -> redirectTo;
                 break;
             case 'volunteer':
-                return '/dashboard';
+                $this -> redirectTo = '/dashboard';
+                return $this -> redirectTo;
                 break;
             default:
                 return '/login';
