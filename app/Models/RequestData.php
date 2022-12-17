@@ -34,11 +34,15 @@ class RequestData extends Model
 
     public function studentLevel()
     {
-        return $this->belongsTo(StudentLevel::class);
+        return $this->belongsTo(StudentLevelCategory::class,'student_level');
     }
 
     public function resourceCategory()
     {
-        return $this->belongsTo(ResourceCategory::class);
+        return $this->belongsTo(ResourceCategory::class,'resource_category');
+    }
+
+    public function offer() {
+        return $this->hasMany(Offer::class,'request_id');
     }
 }

@@ -60,3 +60,9 @@ Route::group(['middleware' => ['auth', 'checkrole:volunteer']], function () {
     Route::get('/dashboard', [App\Http\Controllers\volunteer\DashboardController::class, 'index'])->name('volunteer_dashboard');
     Route::get('/requestDetails/{id}', 'ViewAllRequestController@show');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('offer/store/{request_data}', [OfferController::class, 'index'])->name('offer.index');
+    Route::post('offer/store/{request_data}', [OfferController::class, 'store'])->name('offer.store');
+});
+
