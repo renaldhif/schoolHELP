@@ -27,6 +27,16 @@ class AddVolunteerController extends Controller
      */
     public function create(Request $request)
     {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required|min:5|max:12',
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'phone_number' => 'required',
+            'occupation' => 'required',
+            'dob' => 'required|date|before:today'
+        ]);
+
         $query = User::create([
             'username' => $request['username'],
             'password' => Hash::make($request['password']),
@@ -36,7 +46,7 @@ class AddVolunteerController extends Controller
             'occupation' => $request['occupation'],
             'dob' => $request['dob']
         ]);
-        if($query) {
+        if ($query) {
             return back()->with('success', 'Volunteer account registered successfully');
         } else {
             return back()->with('fail', 'Something went wrong');

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\schooladmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Offer;
+use App\Models\RequestData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReviewOffersController extends Controller
 {
@@ -14,7 +17,31 @@ class ReviewOffersController extends Controller
      */
     public function index()
     {
-        return view('schooladmin.reviewoffers');
+        if (request('type') == "offer-status") {
+            DB::beginTransaction();
+            try {
+                $offer = Offer::find(request('offer_id'));
+                if (!$offer)  return redirect()->back()->with('error', 'Offer not found');
+
+                if (request('status') == "accept") {
+                    $offer->requestData->request_status = "CLOSED";
+
+                    $offer->offer_status = "ACCEPTED";
+                    $offer->offer_accepted = now();
+                    $offer->offer_closed = now();
+                    $offer->save();
+                    $offer->requestData->save();
+                }
+                DB::commit();
+                return redirect()->route('schooladmin_reviewoffers')->with('success', 'Offer Accepted !');
+            } catch (\Throwable $th) {
+                dd($th);
+                DB::rollback();
+                return redirect()->route('schooladmin_reviewoffers')->with('error', 'Something went wrong');
+            }
+        }
+        $data = RequestData::all();
+        return view('schooladmin.reviewoffers', compact('data'));
     }
 
     /**
