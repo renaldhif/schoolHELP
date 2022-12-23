@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\volunteer\OfferController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -59,6 +60,7 @@ Route::group(['middleware' => ['auth', 'checkrole:schooladmin']], function () {
 Route::group(['middleware' => ['auth', 'checkrole:volunteer']], function () {
     Route::get('/dashboard', [App\Http\Controllers\volunteer\DashboardController::class, 'index'])->name('volunteer_dashboard');
     Route::get('/requestDetails/{id}', 'ViewAllRequestController@show');
+    Route::get('/offer/list', [OfferController::class, 'list'])->name('offer.list');
 });
 
 Route::middleware('auth')->group(function () {
