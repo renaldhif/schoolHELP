@@ -153,7 +153,7 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">View All Request</h1>
-                    <h1 class="h3 mb-4 text-gray-800">Welcome, {{ Auth::user()->name }}!</h1>
+               
 
 <!-- Data Table of Request -->
 <div class="card shadow mb-4">
