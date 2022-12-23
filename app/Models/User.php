@@ -59,10 +59,16 @@ class User extends Authenticatable
 
     public function requests()
     {
-        return $this->hasMany(Request::class);
+        return $this->hasMany(RequestData::class);
     }
 
-    public function getSchoolAttribute() {
+    public function getSchoolAttribute()
+    {
         return School::find($this->school_id);
+    }
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
     }
 }

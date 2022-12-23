@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\schooladmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\RequestData;
+use App\Models\ResourceCategory;
+use App\Models\School;
+use App\Models\StudentLevelCategory;
 use Illuminate\Http\Request;
 
 class ViewAllRequestController extends Controller
@@ -14,7 +18,11 @@ class ViewAllRequestController extends Controller
      */
     public function index()
     {
-        return view('schooladmin.viewallrequest');
+        $requests = auth()->user()->requests()->get();
+        $category = ['RESOURCE', 'TUTORIAL'];
+        $status = ['NEW', 'CLOSED'];
+
+        return view('schooladmin.viewallrequest', compact('requests', 'category', 'status'));
     }
 
     /**
