@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth', 'checkrole:superadmin']], function () {
     Route::get('/superadmin_dashboard', [App\Http\Controllers\schoolhelpadmin\DashboardController::class, 'index'])->name('superadmin_dashboard');
     Route::get('/superadmin_addschool', [App\Http\Controllers\schoolhelpadmin\AddSchoolController::class, 'index'])->name('superadmin_addschool');
     Route::get('/superadmin_addschooladmin', [App\Http\Controllers\schoolhelpadmin\AddSchoolAdminController::class, 'index'])->name('superadmin_addschooladmin');
+    Route::get('/superadmin_viewschooladmin', [App\Http\Controllers\schoolhelpadmin\AddSchoolAdminController::class, 'view'])->name('superadmin_viewschooladmin');
 
     Route::post('/superadmin_addschool', [App\Http\Controllers\schoolhelpadmin\AddSchoolController::class, 'addSchool'])->name('superadmin_addschool');
     Route::post('/superadmin_addschooladmin', [App\Http\Controllers\schoolhelpadmin\AddSchoolAdminController::class, 'addSchoolAdmin'])->name('superadmin_addschooladmin');

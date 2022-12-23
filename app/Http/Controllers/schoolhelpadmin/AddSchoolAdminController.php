@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Auth\RegisterController;
+use Carbon\Carbon;
 
 class AddSchoolAdminController extends Controller
 {
@@ -25,8 +26,19 @@ class AddSchoolAdminController extends Controller
     public function index()
     {
         $schools = School::all();
-        // dd($schools);
         return view('schoolhelpadmin.addschooladmin', ['schools' => $schools]);
+    }
+
+    public function view() {
+        $school = School::all()->map(function($q) {
+            return [
+                'id' => $q->id,
+                'school_name' => $q->school_name,
+                'school_city' => $q->school_city,
+                'created_at' => Carbon::parse($q->created_at)->translatedFormat('l, d F Y'),
+            ];
+        })->sortByDesc('id');
+        return view('schoolhelpadmin.viewschooladmin',compact('school'));
     }
 
     /**
@@ -42,7 +54,7 @@ class AddSchoolAdminController extends Controller
         //     'password' => Hash::make($data['password']),
         //     'role' => 'schooladmin',
         //     'school_id' => $data['school_id'],
-        // ]);        
+        // ]);
     }
 
     /**
@@ -57,7 +69,7 @@ class AddSchoolAdminController extends Controller
     }
 
     public function addSchoolAdmin(Request $request) {
-        
+
 
         // $request -> validate([
         //     'school_id' => 'required',
@@ -99,15 +111,15 @@ class AddSchoolAdminController extends Controller
         // $phone_number = $request -> input('phone_number');
         // $staff_id = $request -> input('staff_id');
         // $position = $request -> input('position');
-        
+
         // $data = array(
-        //     'school_id' => $school_id, 
-        //     'username' => $username, 
-        //     'password' => $password, 
-        //     'fullname' => $fullname, 
-        //     'email' => $email, 
-        //     'phone_number' => $phone_number, 
-        //     'staff_id' => $staff_id, 
+        //     'school_id' => $school_id,
+        //     'username' => $username,
+        //     'password' => $password,
+        //     'fullname' => $fullname,
+        //     'email' => $email,
+        //     'phone_number' => $phone_number,
+        //     'staff_id' => $staff_id,
         //     'position' => $position
         // );
         // DB::table('users')->insert($data);

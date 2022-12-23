@@ -23,6 +23,9 @@
 
 <body id="page-top">
 
+    <!-- Sweet Alert -->
+    @include('sweetalert::alert')
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -39,7 +42,44 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            @include('schoolhelpadmin.menu')
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ Route('superadmin_dashboard') }}">
+                    <i class="fas fa-fw fa-solid fa-home"></i>
+                    <span>Home</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Heading -->
+            <div class="sidebar-heading mt-3">
+                Menu
+            </div>
+
+            <!-- Nav Item - Add School -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ Route('superadmin_addschool') }}">
+                    <i class="fas fa-fw fa-solid fa-school"></i>
+                    <span>Add School</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Add School -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#">
+                    <i class="fas fa-fw fa-solid fa-user-plus"></i>
+                    <span>Add School Administrator</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Add School -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#">
+                    <i class="fas fa-fw fa-solid fa-scroll"></i>
+                    <span>View All Registered School</span>
+                </a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -71,7 +111,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                            <a class="nav-link dropdown-toggle" href="{{asset('sbadmin/#')}}" id="userDropdown"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">School HELP Administrator</span>
                                 <img class="img-profile rounded-circle"
@@ -89,7 +129,6 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                                </a>
                             </div>
                         </li>
 
@@ -103,71 +142,61 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Welcome, School HELP Administrator!</h1>
-
-                    <div class="row">
-
-                        <!-- Add School Card -->
-                        <div class="col-lg-4 ">
-                            <div class="card text-center mb-4" style="height: 300px">
-                                <div class="card-body d-flex align-items-center justify-content-center">
-                                    <a class="nav-link collapsed" href="{{ Route('superadmin_addschool') }}">
-                                        <i class="fas fa-fw fa-solid fa-school fa-5x"></i>
-                                        <h2 class="mt-5">Add School</h2>
-                                    </a>
-                                </div>
-                            </div>
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <span class="card-title"><i class="fa fa-fw fa-list mr-2"></i>List School</span>
                         </div>
-
-                        <!-- Add Admin School Card -->
-                        <div class="col-lg-4 ">
-                            <div class="card text-center mb-4" style="height: 300px">
-                                <div class="card-body d-flex align-items-center justify-content-center">
-                                    <a class="nav-link collapsed" href="{{ Route('superadmin_addschooladmin') }}">
-                                        <i class="fas fa-fw fa-solid fa-user-plus fa-5x"></i>
-                                        <h4 class="mt-5">Add School Administrator</h4>
-                                    </a>
-                                </div>
-                            </div>
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>School</th>
+                                        <th>City</th>
+                                        <th>Created</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($school as $item)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$item['school_name']}}</td>
+                                            <td>{{$item['school_city']}}</td>
+                                            <td>{{$item['created_at']}}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td class="text-center" colspan="4">Nothing data</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
-
-                        <!-- View All Registered School Card -->
-                        <div class="col-lg-4 ">
-                            <div class="card text-center mb-4" style="height: 300px">
-                                <div class="card-body d-flex align-items-center justify-content-center">
-                                    <a class="nav-link collapsed" href="{{ Route('superadmin_viewschooladmin') }}">
-                                        <i class="fas fa-fw fa-solid fa-scroll fa-5x"></i>
-                                        <h4 class="mt-5">View All Registered School</h4>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-
                 </div>
+
                 <!-- /.container-fluid -->
 
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; 2022 | All Rights Reserved
+                                <br>
+                                Developed with ❤️ for BIT216 - Software Engineering Principles HELP University
+                            </span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; 2022 | All Rights Reserved
-                            <br>
-                            Developed with ❤️ for BIT216 - Software Engineering Principles HELP University
-                        </span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
+
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
@@ -189,7 +218,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/login">Logout</a>
+                    <a class="btn btn-primary" href="{{asset('sbadmin/login.html')}}">Logout</a>
                 </div>
             </div>
         </div>
