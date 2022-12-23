@@ -13,7 +13,8 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('sbadmin/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -108,14 +109,16 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
-                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{asset('sbadmin/img/undraw_profile.svg')}}">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
                                 <!-- Profile -->
                                 <a class="dropdown-item" href="{{ Route('schooladmin_profile') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -150,7 +153,58 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Review Offers</h1>
+                    <div class="accordion" id="accordionExample">
+                        @forelse ($data as $key => $item)
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left" type="button"
+                                            data-toggle="collapse" data-target="#collapse-{{$key}}" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                          {{$item->description}}
+                                        </button>
+                                    </h2>
+                                </div>
 
+                                <div id="collapse-{{$key}}" class="collapse {{$key == 0 ? 'show' : ''}} " aria-labelledby="headingOne"
+                                    data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Volunteer</th>
+                                                    <th>Offer Description</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($item->offer()->get() as $value)
+                                                    <tr>
+                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>{{$value->user->name}}</td>
+                                                        <td>{{$value->remarks}}</td>
+                                                        <td>
+                                                            @if($value->offer_status <> "ACCEPTED")
+                                                            <a href="?type=offer-status&offer_id={{$value->id}}&status=accept" class="btn btn-sm btn-success"><i class="fa fa-check fa-fw mr-2"></i>Accept</a>
+                                                            @else
+                                                                <span class="badge badge-primary"><i class="fa fa-fw fa-check mr-2"></i>Accepted</span>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                <tr>
+                                                    <td colspan="4" class="text-center">Nothing data</td>
+                                                </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                        @endforelse
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
