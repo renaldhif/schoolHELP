@@ -18,7 +18,10 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('sbadmin/css/sb-admin-2.min.css')}}" rel="stylesheet">
-
+    {{-- <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> --}}
+    <!-- Data Tables CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
 </head>
 
 <body id="page-top">
@@ -145,18 +148,210 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                @yield('content')
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">View All Request</h1>
+<<<<<<< HEAD
+=======
+               
+>>>>>>> 28d603031a0c54336a6db4914a5932782c7a0ef8
+
+                <!-- Data Table of Request -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Request Lists</h6>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="mb-4">Filter</h4>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label>
+                                    <strong> Request Date </strong>
+                                </label>
+                                <select class="form-control mb-4" id="select-date" name="request_date">
+                                    <option value=""></option>
+                                    @foreach (collect($requests)->unique('request_date') as $request)
+                                    <option value="{{ $request->request_date }}">{{ $request->request_date }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                <!-- End of Select Request Date Filter -->
+                            </div>
+
+                            <!-- Select City Filter -->
+                            <div class="col-md-4">
+                                <label>
+                                    <strong> Status </strong>
+                                </label>
+                                <select class="form-control mb-4" id="select-status">
+                                    <option value=""></option>
+                                    @foreach ($status as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- End of Select City Filter -->
+
+                            <!-- Select School Filter -->
+                            <div class="col-md-4">
+                                <label>
+                                    <strong> Category </strong>
+                                </label>
+                                <select class="form-control mb-4" id="select-category">
+                                    <option value=""></option>
+                                    @foreach ($category as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- End of Select School Filter -->
 
 
+
+                            <!-- Select Request Date Filter -->
+                            {{-- <!-- Pickdate -->
+                                <div class="col-md-4">
+                                    <label>
+                                        <strong> Request Date </strong>
+                                    </label>
+                                    <input type="date" class="form-control mb-4" id="selectdate" name="request_date">
+                                </div> --}}
+
+                            <!-- By Available Request Date -->
+                            <!-- *UPDATE: Multiple date, dont use this method -->
+
+
+                            <hr>
+                            <div class="col">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Status</th>
+                                                <th>Request Date</th>
+                                                <th>Description</th>
+                                                <th>School City</th>
+                                                <th>Category</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <th>ID</th>
+                                            <th>Status</th>
+                                            <th>Request Date</th>
+                                            <th>Description</th>
+                                            <th>School City</th>
+                                            <th>Category</th>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach($requests as $data)
+                                            <tr class="item{{ $data->id }}">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $data->request_status }}</td>
+                                                <td>{{ $data->request_date }}</td>
+                                                <td>{{ $data->description }}</td>
+                                                <td>{{ $data->school->school_city }}</td>
+                                                <td>{{ !is_null($data->resourceCategory) ? 'RESOURCE' : 'TUTORIAL'}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @foreach($requests as $data)
+                                <div class="modal fade" id="modalViewDetailRquest{{ $data->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="modalViewDetailRquest{{ $data->id }}Label" aria-hidden="true">
+                                    <div class="modal-dialog col-md" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalViewDetailRquest{{ $data->id }}Label">Request Detail</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-left">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="vertical-align: top">Request ID</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->id }}</td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td style="vertical-align: top">Request Date</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->request_date }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: top">Request Status</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->request_status }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: top">School City</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->school->school_city }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: top">Request Description</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->description }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: top">Request Type</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{$request->resource_category ? "Resource" : "Tutorial"}}
+                                                            </td>
+                                                        </tr>
+                                                        @if($data->student_level != null)
+                                                        <tr>
+                                                            <td style="vertical-align: top">Proposed Date</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->proposed_date }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="vertical-align: top">Student Level</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->studentLevel->category_name ?? 'No data' }}</td>
+                                                            </td>
+                                                        <tr>
+                                                            <td style="vertical-align: top">Student Number</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->student_number }}</td>
+                                                        </tr>
+                                                        @else
+                                                        <tr>
+                                                            <td style="vertical-align: top">Resource Category</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->resourceCategory->category_name ?? 'No data' }}
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td style="vertical-align: top">Resource Quantity</td>
+                                                            <td style="vertical-align: top">&nbsp;&nbsp;:&nbsp;&nbsp;</td>
+                                                            <td style="vertical-align: top">{{ $data->resource_quantity }}</td>
+                                                        </tr>
+                                                        @endif
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="{{route('offer.index',['request_data' => $data->id])}}" class="btn btn-primary btn-block">Make
+                                                    an Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
-
-
-
             </div>
             <!-- End of Main Content -->
 
@@ -213,7 +408,43 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{('sbadmin/js/sb-admin-2.min.js')}}"></script>
-
+    <!-- Data Tables JS CDN -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <!-- Data Tables Bootstrap -->
+    {{-- <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap4.min.js"></script> --}}
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize
+            var dt = $("#dataTable").DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+            });
+            // Filter Select School
+            $("select#select-status").on("change", function () {
+                dt.column(1).search(this.value).draw();
+            });
+            // Filter Select School City
+            $("select#select-category").on("change", function () {
+                dt.column(5).search(this.value).draw();
+            });
+            // Filter Select Request Date
+            $("select#select-date").on("change", function () {
+                dt.column(2).search(this.value).draw();
+            });
+        });
+    </script>
 </body>
 
 </html>
