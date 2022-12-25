@@ -14,7 +14,7 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $request_datas = RequestData::all();
+        $request_datas = RequestData::all()->where('request_status', 'NEW');
         return view('welcome', ['request_datas' => $request_datas]);
     }
 
