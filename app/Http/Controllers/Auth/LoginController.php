@@ -21,7 +21,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers{
+    use AuthenticatesUsers {
         logout as performLogout;
     }
 
@@ -34,18 +34,18 @@ class LoginController extends Controller
     public function redirectTo()
     {
         $role = Auth::user()->role;
-        switch ($role){
+        switch ($role) {
             case 'superadmin':
-                $this -> redirectTo = '/superadmin_dashboard';
-                return $this -> redirectTo;
+                $this->redirectTo = '/superadmin_dashboard';
+                return $this->redirectTo;
                 break;
             case 'schooladmin':
-                $this -> redirectTo = '/schooladmin_dashboard';
-                return $this -> redirectTo;
+                $this->redirectTo = '/schooladmin_dashboard';
+                return $this->redirectTo;
                 break;
             case 'volunteer':
-                $this -> redirectTo = '/dashboard';
-                return $this -> redirectTo;
+                $this->redirectTo = '/dashboard';
+                return $this->redirectTo;
                 break;
             default:
                 return '/login';
@@ -61,6 +61,11 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function username()
+    {
+        return 'username';
     }
 
     public function logout(Request $request)
