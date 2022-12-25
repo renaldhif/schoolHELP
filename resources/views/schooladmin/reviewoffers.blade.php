@@ -200,7 +200,7 @@
                                                     </tr>
                                                 @empty
                                                 <tr>
-                                                    <td colspan="4" class="text-center">Nothing data</td>
+                                                    <td colspan="4" class="text-center">No Data</td>
                                                 </tr>
                                                 @endforelse
                                             </tbody>
