@@ -173,8 +173,11 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Volunteer</th>
+                                                    <th>Offer Date</th>
                                                     <th>Offer Description</th>
+                                                    <th>Volunteer</th>
+                                                    <th>Volunteer Age</th>
+                                                    <th>Volunteer Ocupation</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -182,8 +185,11 @@
                                                 @forelse ($item->offer()->get() as $value)
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
-                                                        <td>{{$value->user->name}}</td>
+                                                        <td>{{$value->created_at}}</td>
                                                         <td>{{$value->remarks}}</td>
+                                                        <td>{{$value->user->name}}</td>
+                                                        <td>{{Carbon\Carbon::parse($value->user->dob)->age}} years</td>
+                                                        <td>{{$value->user->occupation}}</td>
                                                         <td>
                                                             @if($value->offer_status <> "ACCEPTED")
                                                             <a href="?type=offer-status&offer_id={{$value->id}}&status=accept" class="btn btn-sm btn-success"><i class="fa fa-check fa-fw mr-2"></i>Accept</a>

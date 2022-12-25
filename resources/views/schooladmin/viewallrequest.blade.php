@@ -153,11 +153,6 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">View All Request</h1>
-<<<<<<< HEAD
-=======
-               
->>>>>>> 28d603031a0c54336a6db4914a5932782c7a0ef8
-
                 <!-- Data Table of Request -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">

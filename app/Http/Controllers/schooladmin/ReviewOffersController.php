@@ -40,7 +40,10 @@ class ReviewOffersController extends Controller
                 return redirect()->route('schooladmin_reviewoffers')->with('error', 'Something went wrong');
             }
         }
-        $data = RequestData::all();
+
+        $data = RequestData::all()->filter(function ($value, $key) {
+            return $value->school_id == auth()->user()->school_id;
+        });
         return view('schooladmin.reviewoffers', compact('data'));
     }
 
